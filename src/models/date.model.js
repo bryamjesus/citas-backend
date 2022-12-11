@@ -4,8 +4,8 @@ const { foreingKey, basicDateSchema, basicStringSchema } = require("../shared/ut
 const dateSchema = new Schema(
   {
     user_id: foreingKey('user'),
-    appointmentTime: basicDateSchema,
-    dayOfTheAppointment: basicStringSchema
+    appointmentTime: basicStringSchema, // basicDateSchema
+    dayOfTheAppointment: basicDateSchema
   },
   {
     versionKey: false,

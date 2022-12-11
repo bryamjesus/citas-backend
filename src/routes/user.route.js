@@ -14,4 +14,8 @@ router.post("/", (req, res) => {
   controller.createOneUser(req, res);
 });
 
+router.delete("/:id", (req, res) => {
+  controller.deleteOneUser(req, res);
+});
+
 module.exports = router;

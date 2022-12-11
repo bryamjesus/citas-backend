@@ -1,3 +1,5 @@
+const { Schema } = require("mongoose");
+
 const basicStringSchema = { type: String, require: true };
 const basicDateSchema = { type: Date, require: true }
 const basicNumberSchema = { type: Number, required: true };

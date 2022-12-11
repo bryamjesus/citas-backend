@@ -8,7 +8,7 @@ const userSchema = new Schema(
     dni: basicStringSchema,
     phone: basicStringSchema,
     email: basicStringSchema,
-    state: defaultSchema(), // A:activo | I:inactivo
+    state: defaultSchema(), // A:activo | I:inactivo // E: Existente
   },
   { versionKey: false }
 );

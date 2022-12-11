@@ -1,4 +1,5 @@
-const userModel = require(`../models/user.model`)
+const userModel = require(`../models/user.model`);
+const { DNI_EXIST } = require("../shared/utils/response.utils");
 
 const controller = {
   async getAllUsers(res) {
@@ -21,22 +22,38 @@ const controller = {
     }
   },
   async createOneUser(req, res) {
-    const { names, surnames, dni, phone, email } = req.body;
-    const user = new userModel();
-    user.names = names;
-    user.surnames = surnames;
-    user.dni = dni;
-    user.phone = phone;
-    user.email = email;
     try {
-      const result = await user.save();
-      res.json(result);
+      const { names, surnames, dni, phone, email } = req.body;
+      const allUsers = await userModel.find();
+      const existUser = allUsers.findIndex((user) => user.dni === dni)
+      if (existUser === -1) {
+        console.log(existUser)
+        const user = new userModel();
+        user.names = names;
+        user.surnames = surnames;
+        user.dni = dni;
+        user.phone = phone;
+        user.email = email;
+        const result = await user.save();
+        res.json(result);
+      } else {
+        res.json(DNI_EXIST)
+      }
     } catch (error) {
       console.error(error);
       res.sendStatus(500);
     }
   },
-
+  async deleteOneUser(req, res) {
+    try {
+      const { id } = req.params;
+      await userModel.findByIdAndDelete(id);
+      res.sendStatus(200);
+    } catch (error) {
+      console.error(error);
+      res.sendStatus(500);
+    }
+  },
 }
 
 module.exports = controller
